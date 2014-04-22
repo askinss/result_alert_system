@@ -1,0 +1,32 @@
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <%= link_to "Result Alert System", root_url, class: "brand" %>
+      <div class="nav-collapse collapse">
+        <ul class="nav">
+          <li class=<%=active_class(root_url)%>><%= link_to "Home", root_url  %></li>
+          <li class=<%=active_class(register_path)%>><%= link_to "Register", register_path if current_student.nil? %></li>
+          <li class=<%=active_class(profile_path)%>><%= link_to "Profile", profile_path unless current_student.nil? %></li>
+          <li class=<%=active_class(result_path)%>><%= link_to "Post Result", result_path%></li>
+        </ul>
+        <% if current_student.nil? %>
+          <%= form_for :session, :url => sessions_path, html: {class: "navbar-form pull-right"} do |f| %>
+            <%= f.text_field :matric_no, class:"span2", placeholder:"Matric No" %>
+            <%= f.password_field :password, class:"span2", placeholder:"Password" %>
+            <%= f.submit "Sign in", class: "btn" %>
+          <% end %>
+        <% else %>
+          <div class="pull-right" >
+            <h5 class="welcome_user">Welcome! <%= current_student.name %> <%= link_to "logout", logout_path, class: "btn" %></h5>
+            
+          </div>
+        <% end %>
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
+</div>
